@@ -1,24 +1,32 @@
 package web.gameofthrones.Entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "ДОМ")
+@Data
+@Table(name = "\"ДОМ\"")
 public class House {
 
+    public House() {
+    }
+
     @Id
-    @Column(name="Название")
+    @Column(name="\"НАЗВАНИЕ\"")
     private String name;
 
-    @Column(name = "КОЛВО_ЗОЛОТА")
+    @Column(name = "\"КОЛВО_ЗОЛОТА\"")
     private long countGold;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "house")
+    Set<AllianceMember> alliances;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "house", targetEntity = Hero.class)
+    Set<Hero> heroes;
 }
