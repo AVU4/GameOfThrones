@@ -29,6 +29,7 @@ public class HouseController {
         return houseService.getAll();
     }
 
+
     @GetMapping("/countries")
     public List<Country> getAllCountries(){return countryService.getAll();}
 

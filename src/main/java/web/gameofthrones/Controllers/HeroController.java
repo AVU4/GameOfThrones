@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import web.gameofthrones.Entities.Captive;
 import web.gameofthrones.Entities.Hero;
+import web.gameofthrones.Entities.House;
 import web.gameofthrones.Services.CaptiveService;
 import web.gameofthrones.Services.HeroService;
 
@@ -19,9 +20,10 @@ public class HeroController {
     @Autowired
     private CaptiveService captiveService;
 
+
     @GetMapping("/heroes")
     public List<Hero> getAll(){
-        return heroService.getAll();
+        return heroService.getAllInHouse("Ланнистеры");
     }
 
     @GetMapping("/captives")

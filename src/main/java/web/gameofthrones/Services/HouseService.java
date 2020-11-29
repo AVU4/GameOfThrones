@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface HouseService {
 
+    House getOneByName(String name);
     List<House> getAll();
 }

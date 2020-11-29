@@ -15,6 +15,11 @@ public class HouseServiceImpl implements HouseService {
     private HouseRepository houseRepository;
 
     @Override
+    public House getOneByName(String name) {
+        return houseRepository.getHouseByName(name);
+    }
+
+    @Override
     public List<House> getAll() {
         return houseRepository.findAll();
     }
