@@ -1,5 +1,7 @@
 package web.gameofthrones.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,11 +12,17 @@ public class Captive {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonManagedReference
     @OneToOne
     @JoinColumn(name = "\"ИМЯ_ЛИДЕРА\"", foreignKey = @ForeignKey(name = "\"ПЛЕННИК_ИМЯ_ЛИДЕРА_fkey\""))
     private Hero hero;
 
-    @OneToOne
+    @JsonManagedReference
+    @ManyToOne
     @JoinColumn(name = "\"НАЗВАНИЕ_ДОМА_ПЛЕНИВШЕГО\"", foreignKey = @ForeignKey(name = "\"ПЛЕННИК_НАЗВАНИЕ_ДОМА_ПЛЕНИВШЕ\""))
-    private House house;
+    private House houseOwner;
+
+
+
+
 }

@@ -1,11 +1,9 @@
 package web.gameofthrones.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -21,5 +19,9 @@ public class Pet {
 
     @Column(name = "\"СПОСОБНОСТЬ\"")
     private String skill;
+
+    @JsonBackReference
+    @OneToOne(mappedBy = "pet")
+    private Hero heroOwner;
 
 }

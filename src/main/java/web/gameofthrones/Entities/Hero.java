@@ -33,9 +33,20 @@ public class Hero {
     private String skillCastle;
 
     @Column(name = "\"РЕЗЕРВИСТ\"")
-    private boolean isArrested;
+    private boolean isReserve;
 
+
+    @JsonManagedReference
     @OneToOne
     @JoinColumn(name = "\"ПИТОМЕЦ\"", foreignKey = @ForeignKey(name = "\"ЛИДЕР_ПИТОМЕЦ_fkey\""))
     private Pet pet;
+
+    @JsonBackReference
+    @OneToOne(mappedBy = "hero", targetEntity = Captive.class)
+    private Captive captive;
+
+    @JsonBackReference
+    @OneToOne(mappedBy = "king", targetEntity = History.class)
+    private History history;
+
 }
