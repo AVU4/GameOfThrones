@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import web.gameofthrones.Entities.*;
 import web.gameofthrones.Services.*;
 
-import javax.websocket.server.PathParam;
-import java.sql.SQLOutput;
 import java.util.List;
 
 @CrossOrigin
@@ -23,20 +21,14 @@ public class HouseController {
     private CastleService castleService;
 
     @Autowired
-    private ArmyService armyService;
+    private CaptiveService captiveService;
 
     @Autowired
-    private CaptiveService captiveService;
+    private HeroService heroService;
 
     @GetMapping("/house")
     public House getHouse(@RequestParam("house") String house){
         return houseService.getOneByName(house);
-    }
-
-
-    @GetMapping("/houses")
-    public List<House> getAll(){
-        return houseService.getAll();
     }
 
     @GetMapping("/countries")
@@ -56,6 +48,9 @@ public class HouseController {
         return captiveService.getAllInHouse(house);
     }
 
-    @GetMapping("/armies")
-    public List<Army> getAllArmies(){return armyService.getAll();}
+    @GetMapping("/heroes")
+    public List<Hero> getAllFromHouse(@RequestParam("house") String house){
+        return heroService.getAllInHouse(house);
+    }
+
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface ArmyService {
 
     List<Army> getAll();
+    List<Army> getAllInHouse(String house);
 }
