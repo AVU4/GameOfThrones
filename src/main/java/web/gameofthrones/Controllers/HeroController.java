@@ -24,9 +24,4 @@ public class HeroController {
     public List<Hero> getAllFromHouse(@RequestParam("house") String house){
         return heroService.getAllInHouse(house);
     }
-
-    @GetMapping("/captives")
-    public List<Captive> getAllCaptives(){
-        return captiveService.getAll();
-    }
 }

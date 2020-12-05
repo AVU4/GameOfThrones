@@ -11,4 +11,5 @@ import java.util.List;
 public interface HeroRepository  extends JpaRepository<Hero, String> {
 
     List<Hero> getAllByHouseEquals(House house);
+    Hero getByName(String name);
 }

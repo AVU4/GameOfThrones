@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import web.gameofthrones.Entities.Captive;
 import web.gameofthrones.Repositories.CaptiveRepositories;
 import web.gameofthrones.Services.CaptiveService;
+import web.gameofthrones.Services.HouseService;
 
 import java.util.List;
 
@@ -14,10 +15,18 @@ public class CaptiveServiceImpl implements CaptiveService {
     @Autowired
     private CaptiveRepositories captiveRepositories;
 
+    @Autowired
+    private HouseService houseService;
+
 
     @Override
     public List<Captive> getAll() {
         return captiveRepositories.findAll();
+    }
+
+    @Override
+    public List<Captive> getAllInHouse(String house) {
+        return captiveRepositories.findAllByHouseOwner_Name(house);
     }
 
 }

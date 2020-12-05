@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.gameofthrones.Entities.House;
 import web.gameofthrones.Repositories.HouseRepository;
+import web.gameofthrones.Services.HeroService;
 import web.gameofthrones.Services.HouseService;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public class HouseServiceImpl implements HouseService {
     @Autowired
     private HouseRepository houseRepository;
 
+    @Autowired
+    private HeroService heroService;
+
     @Override
     public House getOneByName(String name) {
         return houseRepository.getHouseByName(name);
@@ -22,5 +26,10 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public List<House> getAll() {
         return houseRepository.findAll();
+    }
+
+    @Override
+    public House getOneByHeroName(String name) {
+        return houseRepository.getHouseByHeroesEquals(heroService.getByName(name));
     }
 }

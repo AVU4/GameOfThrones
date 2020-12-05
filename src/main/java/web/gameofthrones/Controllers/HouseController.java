@@ -2,16 +2,11 @@ package web.gameofthrones.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import web.gameofthrones.Entities.Army;
-import web.gameofthrones.Entities.Castle;
-import web.gameofthrones.Entities.Country;
-import web.gameofthrones.Entities.House;
-import web.gameofthrones.Services.ArmyService;
-import web.gameofthrones.Services.CastleService;
-import web.gameofthrones.Services.CountryService;
-import web.gameofthrones.Services.HouseService;
+import web.gameofthrones.Entities.*;
+import web.gameofthrones.Services.*;
 
 import javax.websocket.server.PathParam;
+import java.sql.SQLOutput;
 import java.util.List;
 
 @CrossOrigin
@@ -29,6 +24,9 @@ public class HouseController {
 
     @Autowired
     private ArmyService armyService;
+
+    @Autowired
+    private CaptiveService captiveService;
 
     @GetMapping("/house")
     public House getHouse(@RequestParam("house") String house){
@@ -49,8 +47,13 @@ public class HouseController {
 
     @GetMapping("/castles")
     public List<Castle>  getAllCastlesInHouse(@RequestParam ("house") String house){
-        System.out.println(house);
         return castleService.getAllInHouse(house);
+    }
+
+    @GetMapping("/captives")
+    public List<Captive> getAllCaptivesInHouse(@RequestParam ("house") String house) {
+        System.out.println(house);
+        return captiveService.getAllInHouse(house);
     }
 
     @GetMapping("/armies")

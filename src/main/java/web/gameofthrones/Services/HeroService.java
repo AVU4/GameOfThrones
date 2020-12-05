@@ -7,6 +7,7 @@ import java.util.List;
 public interface HeroService {
 
     List<Hero> getAllInHouse(String name);
+    Hero getByName(String name);
 
     List<Hero> getAll();
 }
