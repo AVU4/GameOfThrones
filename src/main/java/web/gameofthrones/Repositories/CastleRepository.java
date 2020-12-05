@@ -1,14 +1,15 @@
 package web.gameofthrones.Repositories;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import web.gameofthrones.Entities.Castle;
 import web.gameofthrones.Entities.Country;
-import web.gameofthrones.Entities.House;
 
 import java.util.List;
 
 @Repository
-public interface CountryRepository  extends JpaRepository<Country, String> {
+public interface CastleRepository extends JpaRepository<Castle, String> {
 
-    List<Country> findAllByHouseOwner(House house);
+    Castle findAllByCountryIs(Country country);
 }

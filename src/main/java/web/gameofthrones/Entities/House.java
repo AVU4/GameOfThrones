@@ -10,12 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "\"ДОМ\"")
 public class House {
-
-    public House() {
-    }
 
     @Id
     @Column(name="\"НАЗВАНИЕ\"")
