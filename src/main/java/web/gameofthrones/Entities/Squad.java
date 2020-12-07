@@ -3,10 +3,12 @@ package web.gameofthrones.Entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 @Data
 @Table(name = "\"ОТРЯД\"")
 public class Squad {
@@ -36,4 +38,12 @@ public class Squad {
 
     @Column(name = "\"БОЕВАЯ_МОЩЬ\"")
     private int force;
+
+    public Squad(Army army, House house, String type, int numberSoldiers, int forcePerSoldier) {
+        this.army = army;
+        this.house = house;
+        this.type = type;
+        this.numberSoldiers = numberSoldiers;
+        this.forcePerSoldier = forcePerSoldier;
+    }
 }

@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface CountryRepository  extends JpaRepository<Country, String> {
 
-    List<Country> findAllByHouseOwner(House house);
+    List<Country> findAllByHouseOwner_Name(String name);
 }

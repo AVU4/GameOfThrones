@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.gameofthrones.Entities.Army;
 import web.gameofthrones.Entities.Country;
+import web.gameofthrones.Entities.Squad;
 import web.gameofthrones.Repositories.ArmyRepository;
+import web.gameofthrones.Repositories.SquadRepository;
 import web.gameofthrones.Services.ArmyService;
 import web.gameofthrones.Services.CountryService;
 
@@ -20,6 +22,9 @@ public class ArmyServiceImpl implements ArmyService {
     @Autowired
     private CountryService countryService;
 
+    @Autowired
+    private SquadRepository squadRepository;
+
     @Override
     public List<Army> getAll() {
         return armyRepository.findAll();
@@ -34,5 +39,15 @@ public class ArmyServiceImpl implements ArmyService {
             if (army != null) armies.add(army);
         }
         return armies;
+    }
+
+    @Override
+    public Army getOneById(long id) {
+        return armyRepository.getArmyById(id);
+    }
+
+    @Override
+    public Squad addSquad(Squad squad) {
+        return squadRepository.save(squad);
     }
 }

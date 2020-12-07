@@ -29,6 +29,11 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
+    public List<Hero> getAllFromReserveInHouse(String house) {
+        return heroRepository.getAllByIsReserveIsTrueAndHouse_NameEquals(house);
+    }
+
+    @Override
     public List<Hero> getAll() {
         return heroRepository.findAll();
     }

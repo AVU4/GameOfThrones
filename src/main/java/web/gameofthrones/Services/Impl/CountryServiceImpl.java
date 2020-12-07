@@ -26,7 +26,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<Country> getAllInHouse(String house) {
-        return countryRepository.findAllByHouseOwner(houseService.getOneByName(house));
+        return countryRepository.findAllByHouseOwner_Name(house);
     }
 
 }

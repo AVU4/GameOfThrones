@@ -32,4 +32,11 @@ public class HouseServiceImpl implements HouseService {
     public House getOneByHeroName(String name) {
         return houseRepository.getHouseByHeroesEquals(heroService.getByName(name));
     }
+
+    @Override
+    public void setGold(String house, long golds) {
+        houseRepository.setGold(house, golds);
+    }
+
+
 }

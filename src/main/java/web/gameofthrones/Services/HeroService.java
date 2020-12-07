@@ -8,6 +8,6 @@ public interface HeroService {
 
     List<Hero> getAllInHouse(String name);
     Hero getByName(String name);
-
+    List<Hero> getAllFromReserveInHouse(String house);
     List<Hero> getAll();
 }

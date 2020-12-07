@@ -9,4 +9,5 @@ public interface HouseService {
     House getOneByName(String name);
     List<House> getAll();
     House getOneByHeroName(String name);
+    void setGold(String house, long golds);
 }
