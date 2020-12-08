@@ -14,4 +14,5 @@ public interface ArmyService {
     Squad getSquad(long id);
     void refresh(Army army);
     void refreshSquad(Squad squad);
+    Army addArmy(Army army);
 }

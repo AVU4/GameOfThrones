@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import web.gameofthrones.Entities.Army;
 import web.gameofthrones.Entities.Squad;
+import web.gameofthrones.Request.ArmyRequest;
 import web.gameofthrones.Request.SquadRequest;
 import web.gameofthrones.Responces.TypeSquadResponse;
 import web.gameofthrones.Services.ArmyService;
@@ -44,5 +45,11 @@ public class WarfareController {
             return null;
         process.buySquad(request);
         return armyService.getAllInHouse(request.getHouse());
+    }
+
+    @PostMapping("/army")
+    public List<Army> addArmy(@RequestBody ArmyRequest request){
+        process.createArmy(request);
+        return armyService.getAllInHouse(request.getNameHouse());
     }
 }

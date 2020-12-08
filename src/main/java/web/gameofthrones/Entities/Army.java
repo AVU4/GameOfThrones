@@ -43,6 +43,12 @@ public class Army {
     private List<Squad> squadList;
 
 
+    public Army(Hero hero, Country country){
+        this.general = hero;
+        this.country = country;
+        this.force = 0;
+    }
+
 
 
 }

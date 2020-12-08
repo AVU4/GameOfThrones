@@ -9,4 +9,6 @@ public interface CountryService {
 
     List<Country> getAll();
     List<Country> getAllInHouse(String house);
+    List<Country> getAllFreeCountry();
+    Country getByName(String name);
 }

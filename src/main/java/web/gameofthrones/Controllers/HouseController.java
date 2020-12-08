@@ -47,7 +47,6 @@ public class HouseController {
 
     @GetMapping("/captives")
     public List<Captive> getAllCaptivesInHouse(@RequestParam ("house") String house) {
-        System.out.println(house);
         return captiveService.getAllInHouse(house);
     }
 
@@ -56,4 +55,8 @@ public class HouseController {
         return heroService.getAllInHouse(house);
     }
 
+    @GetMapping("/reserve")
+    public List<Hero> getAllReservesFromHouse(@RequestParam("house") String house){
+        return heroService.getAllFromReserveInHouse(house);
+    }
 }

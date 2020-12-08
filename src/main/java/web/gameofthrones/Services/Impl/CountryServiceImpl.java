@@ -29,4 +29,14 @@ public class CountryServiceImpl implements CountryService {
         return countryRepository.findAllByHouseOwner_Name(house);
     }
 
+    @Override
+    public List<Country> getAllFreeCountry() {
+        return countryRepository.findAllByHouseOwnerIsNull();
+    }
+
+    @Override
+    public Country getByName(String name) {
+        return countryRepository.getByName(name);
+    }
+
 }

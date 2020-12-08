@@ -66,5 +66,10 @@ public class ArmyServiceImpl implements ArmyService {
         squadRepository.refresh(squad);
     }
 
+    @Override
+    public Army addArmy(Army army) {
+        return armyRepository.saveAndFlush(army);
+    }
+
 
 }
