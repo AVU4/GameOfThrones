@@ -38,5 +38,10 @@ public class HouseServiceImpl implements HouseService {
         houseRepository.setGold(house, golds);
     }
 
+    @Override
+    public void refresh(House house) {
+        houseRepository.refresh(house);
+    }
+
 
 }

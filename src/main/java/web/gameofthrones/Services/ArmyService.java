@@ -11,4 +11,7 @@ public interface ArmyService {
     List<Army> getAllInHouse(String house);
     Army getOneById(long id);
     Squad addSquad(Squad squad);
+    Squad getSquad(long id);
+    void refresh(Army army);
+    void refreshSquad(Squad squad);
 }

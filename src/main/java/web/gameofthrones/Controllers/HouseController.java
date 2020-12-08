@@ -28,7 +28,10 @@ public class HouseController {
 
     @GetMapping("/house")
     public House getHouse(@RequestParam("house") String house){
-        return houseService.getOneByName(house);
+
+        House home =  houseService.getOneByName(house);
+        houseService.refresh(home);
+        return home;
     }
 
     @GetMapping("/countries")

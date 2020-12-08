@@ -10,4 +10,5 @@ public interface HouseService {
     List<House> getAll();
     House getOneByHeroName(String name);
     void setGold(String house, long golds);
+    void refresh(House house);
 }

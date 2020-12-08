@@ -4,6 +4,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import web.gameofthrones.Entities.Army;
+import web.gameofthrones.Entities.Squad;
 import web.gameofthrones.Request.SquadRequest;
 import web.gameofthrones.Responces.TypeSquadResponse;
 import web.gameofthrones.Services.ArmyService;
@@ -38,10 +39,10 @@ public class WarfareController {
     }
 
     @PostMapping("/squad")
-    public String addSquad(@RequestBody SquadRequest request){
+    public List<Army> addSquad(@RequestBody SquadRequest request){
         if (request.getArmyId() == null || request.getNumber() == null || request.getType() == null)
-            return "No ok";
+            return null;
         process.buySquad(request);
-        return "Ок";
+        return armyService.getAllInHouse(request.getHouse());
     }
 }
