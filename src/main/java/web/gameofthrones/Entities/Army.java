@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,7 +33,7 @@ public class Army {
     private Country country;
 
     @Column(name = "\"БОЕВАЯ_МОЩЬ\"")
-    private int force;
+    private Integer force;
 
     @JsonBackReference
     @OneToMany(mappedBy = "army", targetEntity = MemberBattle.class)

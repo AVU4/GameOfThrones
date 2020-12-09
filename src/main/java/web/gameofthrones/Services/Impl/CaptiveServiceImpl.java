@@ -3,6 +3,7 @@ package web.gameofthrones.Services.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.gameofthrones.Entities.Captive;
+import web.gameofthrones.Entities.House;
 import web.gameofthrones.Repositories.CaptiveRepositories;
 import web.gameofthrones.Services.CaptiveService;
 import web.gameofthrones.Services.HouseService;
@@ -31,7 +32,7 @@ public class CaptiveServiceImpl implements CaptiveService {
 
     @Override
     public List<Captive> getAllFromOtherHouse(String house) {
-        return captiveRepositories.findAllByHouseOwnerIsNot(houseService.getOneByName(house));
+        return captiveRepositories.findAllByHero_House_NameAndHouseOwnerIsNot(house, houseService.getOneByName(house));
     }
 
     @Override

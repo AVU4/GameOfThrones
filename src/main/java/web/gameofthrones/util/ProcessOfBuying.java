@@ -53,7 +53,10 @@ public class ProcessOfBuying {
         if (army == null){
             army = new Army(hero, country);
             armyService.addArmy(army);
-        }else armyService.setCountry(country, hero);
+        }else {
+            if (army.getForce() == null) army.setForce(0);
+            armyService.setCountry(country, hero);
+        }
         armyService.refresh(army);
         return "Ok";
     }
