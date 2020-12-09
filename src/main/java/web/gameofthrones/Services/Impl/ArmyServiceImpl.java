@@ -82,5 +82,15 @@ public class ArmyServiceImpl implements ArmyService {
         armyRepository.setCountry(country, name);
     }
 
+    @Override
+    public Army getOneByCountry(String name) {
+        return armyRepository.getArmyByCountry_Name(name);
+    }
+
+    @Override
+    public String startBattle(long firstId, long secondId) {
+        return armyRepository.battle(firstId, secondId);
+    }
+
 
 }

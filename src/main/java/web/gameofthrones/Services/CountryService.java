@@ -13,4 +13,5 @@ public interface CountryService {
     Country getByName(String name);
     void refresh(Country country);
     void setHouse(House house, String nameCountry);
+    List<Country> getEnemyCountry(String name);
 }

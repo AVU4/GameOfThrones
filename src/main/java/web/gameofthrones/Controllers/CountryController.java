@@ -3,6 +3,7 @@ package web.gameofthrones.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import web.gameofthrones.Entities.Country;
 import web.gameofthrones.Services.CountryService;
@@ -19,5 +20,10 @@ public class CountryController {
     @GetMapping("/freecountry")
     public List<Country> getAllFreeCountry(){
         return countryService.getAllFreeCountry();
+    }
+
+    @GetMapping("/enemycountry")
+    public List<Country> getAllEnemyCountry(@RequestParam("house") String house){
+        return countryService.getEnemyCountry(house);
     }
 }

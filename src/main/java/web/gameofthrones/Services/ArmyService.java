@@ -19,4 +19,6 @@ public interface ArmyService {
     Army addArmy(Army army);
     Army getOneByGeneralName(String name);
     void setCountry(Country country, Hero name);
+    Army getOneByCountry(String name);
+    String startBattle(long firstId, long secondId);
 }

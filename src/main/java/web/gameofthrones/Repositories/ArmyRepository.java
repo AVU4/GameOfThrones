@@ -21,4 +21,8 @@ public interface ArmyRepository extends CustomRepository<Army, Long> {
     @Modifying
     @Query("update Army army set army.country = :country where army.general = :hero ")
     void setCountry(@Param("country") Country country, @Param("hero") Hero name);
+
+
+    @Query(value = " select battle (:idAttacker , :idDefender ) ", nativeQuery = true)
+    String battle(@Param("idAttacker") long firstId, @Param("idDefender") long secondId);
 }

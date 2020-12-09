@@ -49,4 +49,8 @@ public class CountryServiceImpl implements CountryService {
         countryRepository.setCountry(house, nameCountry);
     }
 
+    @Override
+    public List<Country> getEnemyCountry(String name) {
+        return countryRepository.findAllByHouseOwner_NameIsNot(name);
+    }
 }
