@@ -13,4 +13,5 @@ public interface CaptiveRepositories extends JpaRepository<Captive, Long> {
     List<Captive> findAllByHouseOwner_Name(String house);
     List<Captive> findAllByHero_House_NameAndHouseOwnerIsNot(String name, House house);
     long deleteCaptiveByHero_Name(String name);
+    Captive getByHero_Name(String name);
 }

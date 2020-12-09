@@ -54,7 +54,9 @@ public class ProcessOfBuying {
             army = new Army(hero, country);
             armyService.addArmy(army);
         }else {
+            if (army.getCountry() != null) return "No ok";
             if (army.getForce() == null) army.setForce(0);
+            hero.setReserve(false);
             armyService.setCountry(country, hero);
         }
         armyService.refresh(army);
@@ -63,12 +65,17 @@ public class ProcessOfBuying {
 
     @Transactional
     public String buyCaptive(String nameHero){
-        if (!nameHero.isEmpty()){
+
+        if (!nameHero.isEmpty() && captiveService.getOneByName(nameHero) != null){
+
             House house = houseService.getOneByHeroName(nameHero);
             if (house.getCountGold() < 30000) return "No ok";
-            houseService.setGold(house.getName(), house.getCountGold() - 30000);
-            houseService.refresh(house);
+            Captive captive = captiveService.getOneByName(nameHero);
             Hero hero = heroService.getByName(nameHero);
+            houseService.setGold(house.getName(), house.getCountGold() - 30000);
+            houseService.setGold(captive.getHouseOwner().getName(), captive.getHouseOwner().getCountGold() + 30000);
+            houseService.refresh(house);
+            houseService.refresh(captive.getHouseOwner());
             hero.setReserve(true);
             captiveService.deleteCaptive(hero.getName());
             return "OK";

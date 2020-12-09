@@ -10,4 +10,5 @@ public interface CaptiveService {
     List<Captive> getAllInHouse(String house);
     List<Captive> getAllFromOtherHouse(String house);
     long deleteCaptive(String name);
+    Captive getOneByName(String name);
 }

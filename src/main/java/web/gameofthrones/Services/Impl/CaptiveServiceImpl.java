@@ -40,4 +40,9 @@ public class CaptiveServiceImpl implements CaptiveService {
         return captiveRepositories.deleteCaptiveByHero_Name(name);
     }
 
+    @Override
+    public Captive getOneByName(String name) {
+        return captiveRepositories.getByHero_Name(name);
+    }
+
 }

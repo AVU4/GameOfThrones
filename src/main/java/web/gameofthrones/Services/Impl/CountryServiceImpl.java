@@ -31,7 +31,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<Country> getAllFreeCountry() {
-        return countryRepository.findAllByHouseOwnerIsNull();
+        return countryRepository.findAllByArmyIsNull();
     }
 
     @Override
