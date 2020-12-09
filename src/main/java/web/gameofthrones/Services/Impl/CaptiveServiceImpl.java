@@ -29,4 +29,14 @@ public class CaptiveServiceImpl implements CaptiveService {
         return captiveRepositories.findAllByHouseOwner_Name(house);
     }
 
+    @Override
+    public List<Captive> getAllFromOtherHouse(String house) {
+        return captiveRepositories.findAllByHouseOwnerIsNot(houseService.getOneByName(house));
+    }
+
+    @Override
+    public long deleteCaptive(String name) {
+        return captiveRepositories.deleteCaptiveByHero_Name(name);
+    }
+
 }

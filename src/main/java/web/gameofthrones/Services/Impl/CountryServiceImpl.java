@@ -39,4 +39,14 @@ public class CountryServiceImpl implements CountryService {
         return countryRepository.getByName(name);
     }
 
+    @Override
+    public void refresh(Country country) {
+        countryRepository.refresh(country);
+    }
+
+    @Override
+    public void setHouse(House house, String nameCountry) {
+        countryRepository.setCountry(house, nameCountry);
+    }
+
 }

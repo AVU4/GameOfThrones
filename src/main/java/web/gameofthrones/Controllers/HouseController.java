@@ -3,7 +3,9 @@ package web.gameofthrones.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import web.gameofthrones.Entities.*;
+import web.gameofthrones.Request.CaptiveRequest;
 import web.gameofthrones.Services.*;
+import web.gameofthrones.util.ProcessOfBuying;
 
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class HouseController {
 
     @Autowired
     private HeroService heroService;
+
+    @Autowired
+    private ProcessOfBuying process;
 
     @GetMapping("/house")
     public House getHouse(@RequestParam("house") String house){
@@ -58,5 +63,17 @@ public class HouseController {
     @GetMapping("/reserve")
     public List<Hero> getAllReservesFromHouse(@RequestParam("house") String house){
         return heroService.getAllFromReserveInHouse(house);
+    }
+
+    @GetMapping("/othercaptives")
+    public List<Captive> getAllCaptivesFromOtherHouse(@RequestParam("house") String house) {
+        return captiveService.getAllFromOtherHouse(house);
+    }
+
+    @PostMapping("/captive")
+    public long buyCaptive(@RequestBody CaptiveRequest captiveRequest){
+        String name = captiveRequest.getName();
+        process.buyCaptive(name);
+        return houseService.getOneByHeroName(name).getCountGold();
     }
 }

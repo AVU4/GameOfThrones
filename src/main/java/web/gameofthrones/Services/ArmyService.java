@@ -1,6 +1,8 @@
 package web.gameofthrones.Services;
 
 import web.gameofthrones.Entities.Army;
+import web.gameofthrones.Entities.Country;
+import web.gameofthrones.Entities.Hero;
 import web.gameofthrones.Entities.Squad;
 
 import java.util.List;
@@ -15,4 +17,6 @@ public interface ArmyService {
     void refresh(Army army);
     void refreshSquad(Squad squad);
     Army addArmy(Army army);
+    Army getOneByGeneralName(String name);
+    void setCountry(Country country, Hero name);
 }

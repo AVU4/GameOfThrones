@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.gameofthrones.Entities.Army;
 import web.gameofthrones.Entities.Country;
+import web.gameofthrones.Entities.Hero;
 import web.gameofthrones.Entities.Squad;
 import web.gameofthrones.Repositories.ArmyRepository;
 import web.gameofthrones.Repositories.SquadRepository;
@@ -69,6 +70,16 @@ public class ArmyServiceImpl implements ArmyService {
     @Override
     public Army addArmy(Army army) {
         return armyRepository.saveAndFlush(army);
+    }
+
+    @Override
+    public Army getOneByGeneralName(String name) {
+        return armyRepository.getArmyByGeneral_Name(name);
+    }
+
+    @Override
+    public void setCountry(Country country, Hero name) {
+        armyRepository.setCountry(country, name);
     }
 
 

@@ -11,4 +11,6 @@ import java.util.List;
 public interface CaptiveRepositories extends JpaRepository<Captive, Long> {
 
     List<Captive> findAllByHouseOwner_Name(String house);
+    List<Captive> findAllByHouseOwnerIsNot(House house);
+    long deleteCaptiveByHero_Name(String name);
 }

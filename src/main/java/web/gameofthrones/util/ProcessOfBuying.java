@@ -6,10 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import web.gameofthrones.Entities.*;
 import web.gameofthrones.Request.ArmyRequest;
 import web.gameofthrones.Request.SquadRequest;
-import web.gameofthrones.Services.ArmyService;
-import web.gameofthrones.Services.CountryService;
-import web.gameofthrones.Services.HeroService;
-import web.gameofthrones.Services.HouseService;
+import web.gameofthrones.Services.*;
 
 @Service
 public class ProcessOfBuying {
@@ -25,6 +22,9 @@ public class ProcessOfBuying {
 
     @Autowired
     private CountryService countryService;
+
+    @Autowired
+    private CaptiveService captiveService;
 
     @Transactional
     public boolean buySquad(SquadRequest request){
@@ -42,14 +42,33 @@ public class ProcessOfBuying {
         return true;
     }
 
+    @Transactional
     public String createArmy(ArmyRequest armyRequest){
         if (armyRequest == null || armyRequest.getName() == null || armyRequest.getNameCountry() == null) return "No ok";
         Hero hero = heroService.getByName(armyRequest.getName());
         Country country = countryService.getByName(armyRequest.getNameCountry());
-        Army army = new Army(hero, country);
-        country.setHouseOwner(houseService.getOneByHeroName(hero.getName()));
-        armyService.addArmy(army);
+        Army army = armyService.getOneByGeneralName(hero.getName());
+        countryService.setHouse(houseService.getOneByHeroName(hero.getName()), armyRequest.getNameCountry());
+        countryService.refresh(country);
+        if (army == null){
+            army = new Army(hero, country);
+            armyService.addArmy(army);
+        }else armyService.setCountry(country, hero);
         armyService.refresh(army);
         return "Ok";
+    }
+
+    @Transactional
+    public String buyCaptive(String nameHero){
+        if (!nameHero.isEmpty()){
+            House house = houseService.getOneByHeroName(nameHero);
+            if (house.getCountGold() < 30000) return "No ok";
+            houseService.setGold(house.getName(), house.getCountGold() - 30000);
+            houseService.refresh(house);
+            Hero hero = heroService.getByName(nameHero);
+            hero.setReserve(true);
+            captiveService.deleteCaptive(hero.getName());
+            return "OK";
+        }else return "No ok";
     }
 }

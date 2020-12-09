@@ -11,4 +11,6 @@ public interface CountryService {
     List<Country> getAllInHouse(String house);
     List<Country> getAllFreeCountry();
     Country getByName(String name);
+    void refresh(Country country);
+    void setHouse(House house, String nameCountry);
 }
