@@ -2,6 +2,8 @@ package web.gameofthrones.Controllers;
 
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.gameofthrones.Entities.Army;
 import web.gameofthrones.Entities.House;
@@ -38,39 +40,41 @@ public class WarfareController {
     private HouseService houseService;
 
     @GetMapping("/armies")
-    public List<Army>  getAllInHouse(@RequestParam("house") String house){
-        return armyService.getAllInHouse(house);
+    public ResponseEntity<List<Army>>  getAllInHouse(@RequestParam("house") String house){
+        if (house.isEmpty()) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(armyService.getAllInHouse(house), HttpStatus.OK);
     }
 
     @GetMapping("/typesquads")
-    public List<TypeSquadResponse> getTypes(){
+    public ResponseEntity<List<TypeSquadResponse>> getTypes(){
         List<TypeSquadResponse> responses = new ArrayList<>();
         for (TypeSquad typeSquad : TypeSquad.values())
             responses.add(new TypeSquadResponse(typeSquad.getTypeName(), typeSquad.getCosts(), typeSquad.getForcePerPerson()));
-        return responses;
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
     @PostMapping("/squad")
-    public List<Army> addSquad(@RequestBody SquadRequest request){
-        if (request.getArmyId() == null || request.getNumber() == null || request.getType() == null)
-            return null;
+    public ResponseEntity<List<Army>> addSquad(@RequestBody SquadRequest request){
+        if (request.getArmyId() == null || request.getNumber() == null || request.getType() == null || request.getNumber() <= 0)
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         process.buySquad(request);
-        return armyService.getAllInHouse(request.getHouse());
+        return new ResponseEntity<>(armyService.getAllInHouse(request.getHouse()), HttpStatus.OK);
     }
 
     @PostMapping("/army")
-    public List<Army> addArmy(@RequestBody ArmyRequest request){
-        process.createArmy(request);
-        return armyService.getAllInHouse(request.getNameHouse());
+    public ResponseEntity<List<Army>> addArmy(@RequestBody ArmyRequest request){
+        String res = process.createArmy(request);
+        if (res.equals("No ok")) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(armyService.getAllInHouse(request.getNameHouse()), HttpStatus.OK);
     }
 
     @PostMapping("/battle")
-    public BattleResponse battle(@RequestBody BattleRequest request){
+    public ResponseEntity<BattleResponse> battle(@RequestBody BattleRequest request){
         if (!request.getCountryName().isEmpty() && request.getArmyId() != null && !request.getHouseName().isEmpty()) {
             String result = battleProcess.battle(request);
             BattleResponse response = new BattleResponse(result, armyService.getAllInHouse(request.getHouseName()));
-            return response;
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
-        return null;
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 }

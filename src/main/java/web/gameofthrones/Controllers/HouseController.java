@@ -1,6 +1,8 @@
 package web.gameofthrones.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.gameofthrones.Entities.*;
 import web.gameofthrones.Request.CaptiveRequest;
@@ -32,48 +34,54 @@ public class HouseController {
     private ProcessOfBuying process;
 
     @GetMapping("/house")
-    public House getHouse(@RequestParam("house") String house){
-
+    public ResponseEntity<House> getHouse(@RequestParam("house") String house){
+        if (house.isEmpty()) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         House home =  houseService.getOneByName(house);
         houseService.refresh(home);
-        return home;
+        return new ResponseEntity<>(home, HttpStatus.OK);
     }
 
     @GetMapping("/countries")
-    public List<Country> getAllCountriesInHouse(@RequestParam ("house") String house){
-        System.out.println(house);
-        return countryService.getAllInHouse(house);
+    public ResponseEntity<List<Country>> getAllCountriesInHouse(@RequestParam ("house") String house){
+        if (house.isEmpty()) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(countryService.getAllInHouse(house), HttpStatus.OK);
     }
 
     @GetMapping("/castles")
-    public List<Castle>  getAllCastlesInHouse(@RequestParam ("house") String house){
-        return castleService.getAllInHouse(house);
+    public ResponseEntity<List<Castle>>  getAllCastlesInHouse(@RequestParam ("house") String house){
+        if (house.isEmpty()) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(castleService.getAllInHouse(house), HttpStatus.OK);
     }
 
     @GetMapping("/captives")
-    public List<Captive> getAllCaptivesInHouse(@RequestParam ("house") String house) {
-        return captiveService.getAllInHouse(house);
+    public ResponseEntity<List<Captive>> getAllCaptivesInHouse(@RequestParam ("house") String house) {
+        if (house.isEmpty()) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(captiveService.getAllInHouse(house), HttpStatus.OK);
     }
 
     @GetMapping("/heroes")
-    public List<Hero> getAllFromHouse(@RequestParam("house") String house){
-        return heroService.getAllInHouse(house);
+    public ResponseEntity<List<Hero>> getAllFromHouse(@RequestParam("house") String house){
+        if (house.isEmpty()) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(heroService.getAllInHouse(house), HttpStatus.OK);
     }
 
     @GetMapping("/reserve")
-    public List<Hero> getAllReservesFromHouse(@RequestParam("house") String house){
-        return heroService.getAllFromReserveInHouse(house);
+    public ResponseEntity<List<Hero>> getAllReservesFromHouse(@RequestParam("house") String house){
+        if (house.isEmpty()) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(heroService.getAllFromReserveInHouse(house), HttpStatus.OK);
     }
 
     @GetMapping("/othercaptives")
-    public List<Captive> getAllCaptivesFromOtherHouse(@RequestParam("house") String house) {
-        return captiveService.getAllFromOtherHouse(house);
+    public ResponseEntity<List<Captive>> getAllCaptivesFromOtherHouse(@RequestParam("house") String house) {
+        if (house.isEmpty()) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(captiveService.getAllFromOtherHouse(house), HttpStatus.OK);
     }
 
     @PostMapping("/captive")
-    public long buyCaptive(@RequestBody CaptiveRequest captiveRequest){
+    public ResponseEntity<Long> buyCaptive(@RequestBody CaptiveRequest captiveRequest){
         String name = captiveRequest.getName();
-        process.buyCaptive(name);
-        return houseService.getOneByHeroName(name).getCountGold();
+        String result = process.buyCaptive(name);
+        if (result.equals("No ok")) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(houseService.getOneByHeroName(name).getCountGold(), HttpStatus.OK);
     }
 }
