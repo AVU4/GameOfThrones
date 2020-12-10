@@ -9,7 +9,7 @@ public interface CountryService {
 
     List<Country> getAll();
     List<Country> getAllInHouse(String house);
-    List<Country> getAllFreeCountry();
+    List<Country> getAllFreeCountry(String house);
     Country getByName(String name);
     void refresh(Country country);
     void setHouse(House house, String nameCountry);

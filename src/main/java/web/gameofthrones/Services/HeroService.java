@@ -10,4 +10,6 @@ public interface HeroService {
     Hero getByName(String name);
     List<Hero> getAllFromReserveInHouse(String house);
     List<Hero> getAll();
+    void setReserve(boolean value, String name);
+    void refresh(Hero hero);
 }

@@ -37,4 +37,14 @@ public class HeroServiceImpl implements HeroService {
     public List<Hero> getAll() {
         return heroRepository.findAll();
     }
+
+    @Override
+    public void setReserve(boolean value, String name) {
+        heroRepository.setReverseFalse(name);
+    }
+
+    @Override
+    public void refresh(Hero hero) {
+        heroRepository.refresh(hero);
+    }
 }

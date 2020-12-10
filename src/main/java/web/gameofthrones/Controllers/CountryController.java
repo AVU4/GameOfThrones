@@ -18,8 +18,8 @@ public class CountryController {
     private CountryService countryService;
 
     @GetMapping("/freecountry")
-    public List<Country> getAllFreeCountry(){
-        return countryService.getAllFreeCountry();
+    public List<Country> getAllFreeCountry(@RequestParam("house") String house){
+        return countryService.getAllFreeCountry(house);
     }
 
     @GetMapping("/enemycountry")

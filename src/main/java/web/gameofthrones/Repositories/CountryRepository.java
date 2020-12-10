@@ -15,8 +15,7 @@ import java.util.List;
 public interface CountryRepository  extends CustomRepository<Country, String> {
 
     List<Country> findAllByHouseOwner_Name(String name);
-    List<Country> findAllByHouseOwnerIsNull();
-    List<Country> findAllByArmyIsNull();
+    List<Country> findAllByArmyIsNullAndAndHouseOwner_NameOrHouseOwnerIsNull(String house);
     List<Country> findAllByHouseOwner_NameIsNot(String name);
     Country getByName(String name);
 

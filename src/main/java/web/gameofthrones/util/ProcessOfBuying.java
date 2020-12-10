@@ -50,13 +50,14 @@ public class ProcessOfBuying {
         Army army = armyService.getOneByGeneralName(hero.getName());
         countryService.setHouse(houseService.getOneByHeroName(hero.getName()), armyRequest.getNameCountry());
         countryService.refresh(country);
+        heroService.setReserve(false, hero.getName());
+        heroService.refresh(hero);
         if (army == null){
             army = new Army(hero, country);
             armyService.addArmy(army);
         }else {
             if (army.getCountry() != null) return "No ok";
             if (army.getForce() == null) army.setForce(0);
-            hero.setReserve(false);
             armyService.setCountry(country, hero);
         }
         armyService.refresh(army);

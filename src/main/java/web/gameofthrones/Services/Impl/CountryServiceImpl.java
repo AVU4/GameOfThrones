@@ -30,8 +30,8 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public List<Country> getAllFreeCountry() {
-        return countryRepository.findAllByArmyIsNull();
+    public List<Country> getAllFreeCountry(String house) {
+        return countryRepository.findAllByArmyIsNullAndAndHouseOwner_NameOrHouseOwnerIsNull(house);
     }
 
     @Override
@@ -48,6 +48,7 @@ public class CountryServiceImpl implements CountryService {
     public void setHouse(House house, String nameCountry) {
         countryRepository.setCountry(house, nameCountry);
     }
+
 
     @Override
     public List<Country> getEnemyCountry(String name) {
